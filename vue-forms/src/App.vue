@@ -15,7 +15,7 @@
           <form 
             @submit.prevent="enviar"
             @reset="resetar">
-            
+
             <div class="form-group">
               <label>Nome:</label>
               <input type="text" class="form-control" placeholder="Seu nome" v-model.trim.lazy="desenvolvedor.nome">
@@ -80,6 +80,15 @@
               <textarea id="txt-arear" class="form-control" placeholder="Conte-nos um pouco sobre você..." v-model="desenvolvedor.biografia"></textarea>
             </div>
             <div class="form-group">
+              <AppRange
+                inputClasses="form-control-range"
+                label="Salario: "
+                v-model.number="desenvolvedor.salario"
+                min="1000"
+                max="15000"
+                step="500" />
+            </div>
+            <div class="form-group">
               <div class="form-check form-check-inline">
                 <input type="checkbox" class="form-check-input" id="rec" v-model="desenvolvedor.notificacoes"
                 true-value="Sim"
@@ -125,6 +134,7 @@
 
               <!-- <li class="list-group-item"><strong>Receber notificações?</strong> {{ desenvolvedor.notificacoes ? 'Sim' : 'Não' }} </li> -->
               <li class="list-group-item"><strong>Receber notificações?</strong> {{ desenvolvedor.notificacoes }} </li>
+              <li class="list-group-item"><strong>Salário Pretendido </strong> {{ desenvolvedor.salario }} </li>
             </ul>
             <div class="card-header">Model</div>
             <div class="card-body">
@@ -141,7 +151,13 @@
 
 
 <script>
+
+import AppRange from './components/Range';
+
 export default {
+  components: {
+    AppRange
+  },
   data () {
     return {
       desenvolvedor: {},
@@ -153,7 +169,8 @@ export default {
         genero: 'Masculino',
         tecnologias: [],
         notificacoes: 'Não',
-        ocupacao: ''
+        ocupacao: '',
+        salario: 1000
       },
       ocupacoes: [
         'Dev Fron-End (Web)',
